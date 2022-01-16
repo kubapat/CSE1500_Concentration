@@ -26,84 +26,29 @@
 	<style>
 
 		* {
-			box-sizing: border-box;
-			color: white;
+ 			 box-sizing: border-box;
+			 color: white;
 		}
 
 		.borderedBox {
   			border-radius: 25px;
-  			border: 5px solid;
-			border-color: white;
+  			border: 2px solid white;
   			padding: 4px;
 			margin: 5px;
 			width: fit-content;
 			height: fit-content;
 			color: white;
 		}
-		
-
-		.slide-in {
-			animation: slide-in 0.5s forwards;
-			-webkit-animation: slide-in 0.5s forwards;
-		}
-
-		   
-		@keyframes slide-in {
-			100% { transform: translateX(0%); }
-		}
-
-		@-webkit-keyframes slide-in {
-			100% { -webkit-transform: translateX(0%); }
-		}
-		
-		
-			   
-		@keyframes colors {
-			0%	{border-color: #ffffff;}
-			10% {border-color: #ccf2ff;}
-			20% {border-color: #99e6ff;  }
-			30% {border-color: #66d9ff;  }
-			40% {border-color: #33ccff;  }
-			50% {border-color: #00bfff;  }
-			60% {border-color: #4dd2ff; }
-			70% {border-color: #80dfff;  }
-			80% {border-color: #b3ecff;  }
-			90% {border-color: #e6f9ff;  }
-			100% {border-color: #ffffff; }
-		}
-
-		@-webkit-keyframes colors {
-			0%	{border-color: #ffffff;}
-			10% {border-color: #ccf2ff;}
-			20% {border-color: #99e6ff;  }
-			30% {border-color: #66d9ff;  }
-			40% {border-color: #33ccff;  }
-			50% {border-color: #00bfff;  }
-			60% {border-color: #4dd2ff; }
-			70% {border-color: #80dfff;  }
-			80% {border-color: #b3ecff;  }
-			90% {border-color: #e6f9ff;  }
-			100% {border-color: #ffffff; }
-		}
 
 		.column {
   			float: left;
 			width: 50%;
   			padding: 10px;
-			
-		}
-		
-		.row::before{
-			width: 10px;
-			height: 10px;
-			content: "";
-  			display: grid;
-  			clear: both;
 		}
 
-		.row::after {
+		.row:after {
   			content: "";
-  			display: grid;
+  			display: table;
   			clear: both;
 		}
 		
@@ -114,87 +59,23 @@
   			grid-row-gap: 5%;
   			grid-template-columns: auto auto auto auto;
   			padding: 10px;
-			
 		}
 
 		.grid-item {
 			background-image: url(images/tudelft.png);
 			height: 150px;
-			width: 150px;
 			background-repeat: no-repeat;
-			background-size: 150px 150px;
-            		border: 5px solid white;
-            		padding: 20px;
-            		font-size: 30px;
+			background-size: auto;
+                 	border: 5px solid white;
+                	padding: 20px;
+                	font-size: 30px;
   			text-align: center;
-			border-radius: 5%;
-			-webkit-transition: background-image 1s ease-in-out;
-			-moz-transition: background-image 1s ease-in-out;
-			-o-transition: background-image 1s ease-in-out;
-			transition: background-image 1s ease-in-out;
-			
 		}
-		
-		.grid-item:hover{
-			border: 5px solid rgba(0,0,0,0.5);			
-		}
-		
-		#head{
-			transform: translateX(-100%);
-			-webkit-transform: translateX(-100%);
-		}
-		
-		.row{
-			transform: translateX(-100%);
-			-webkit-transform: translateX(-100%);
-		}
-		
-		
-		
-		.player{
-			border-radius: 25px;
-  			border: 5px solid;
-			border-color: white;
-  			padding: 4px;
-			margin: 5px;
-			width: fit-content;
-			height: fit-content;
-			color: white;
-			animation-name: colors;
-			animation-duration: 2s;
-			animation-iteration-count: infinite;
-			animation-timing-function: linear;
-			-webkit-animation-name: colors;
-			-webkit-animation-duration: 2s;
-			-webkit-animation-iteration-count: infinite;
-			-webkit-animation-timing-function: linear;
-			
-			
-		}
-		
-		#currentTurn{
-			border-radius: 25px;
-  			border: 5px solid white;
-  			padding: 4px;
-			margin: 5px;
-			width: fit-content;
-			height: fit-content;
-			color: white;
-			position: absolute;
-			font-size: 30px;
-			text-align: center;
-			width: 500px;
-			height: 100px;
-			transform: translateX(-100%);
-			-webkit-transform: translateX(-100%);
-			
-		}
-		
 	</style>
 </head>
 
 <body style="background-color: #00a2e8;">
-	<div class="row slide-in">
+	<div class="row">
 		<div class="column">
 			<div align="left" id="gameinit">
 				<h1><b>Concentration</b> Game</h1>
@@ -210,16 +91,16 @@
 		</div>
 	</div>
 
-	<div class="row slide-in">
+	<div class="row">
 		<div class="column">
-			<div class="row slide-in" >
+			<div class="row">
 				<div class="column">
-					<div class="player">
+					<div class="borderedBox">
 						<h1>Player 1:</h1>
 					</div>
 				</div>
 				<div class="column">
-					<div class="player">
+					<div class="borderedBox">
 						<h1 id="player1score">21</h1>
 					</div>
 				</div>
@@ -227,20 +108,20 @@
 
 			<br><br>
 
-			<div class="row slide-in">
+			<div class="row">
                                 <div class="column">
-                                        <div class="player">
+                                        <div class="borderedBox">
                                                 <h1>Player 2:</h1>
                                         </div>
                                 </div>
                                 <div class="column">
-                                        <div class="player">
+                                        <div class="borderedBox">
                                                 <h1 id="player2score">37</h1>
                                         </div>
                                 </div>
                         </div>
 
-			<div id="currentTurn" class="slide-in">
+			<div id="currentTurn">
 				Wait for other player to connect
 			</div>
 
@@ -257,9 +138,9 @@
                 		<div class="grid-item" onclick="clicked('6')" id="grid6"></div>
 				<div class="grid-item" onclick="clicked('7')" id="grid7"></div>
                 		<div class="grid-item" onclick="clicked('8')" id="grid8"></div>
-               			<div class="grid-item" onclick="clicked('9')" id="grid9"></div>
+               	 		<div class="grid-item" onclick="clicked('9')" id="grid9"></div>
 				<div class="grid-item" onclick="clicked('10')" id="grid10"></div>
-               			 <div class="grid-item" onclick="clicked('11')" id="grid11"></div>
+                		<div class="grid-item" onclick="clicked('11')" id="grid11"></div>
                 		<div class="grid-item" onclick="clicked('12')" id="grid12"></div>
                 		<div class="grid-item" onclick="clicked('13')" id="grid13"></div>
                 		<div class="grid-item" onclick="clicked('14')" id="grid14"></div>

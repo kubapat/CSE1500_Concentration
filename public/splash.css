@@ -1,0 +1,124 @@
+@import "stylesheets/style.css";
+
+
+main{
+  display: grid;
+}
+
+@keyframes colors1 {
+  0%	{color: #ffffff;}
+  10% {color: #ccf2ff;}
+  20% {color: #99e6ff;  }
+  30% {color: #66d9ff;  }
+  40% {color: #33ccff;  }
+  50% {color: #00bfff;  }
+  60% {color: #4dd2ff; }
+  70% {color: #80dfff;  }
+  80% {color: #b3ecff;  }
+  90% {color: #e6f9ff;  }
+  100% {color: #ffffff; }
+}
+
+@-webkit-keyframes colors1 {
+  0%	{color: #ffffff;}
+  10% {color: #ccf2ff;}
+  20% {color: #99e6ff;  }
+  30% {color: #66d9ff;  }
+  40% {color: #33ccff;  }
+  50% {color: #00bfff;  }
+  60% {color: #4dd2ff; }
+  70% {color: #80dfff;  }
+  80% {color: #b3ecff;  }
+  90% {color: #e6f9ff;  }
+  100% {color: #ffffff; }
+}
+
+.footer {
+
+  left: 0;
+  bottom: 0;
+  position: fixed;
+  border-radius: 40px;
+  border: 5px solid white;
+  padding: 4px;
+  margin: 5px;
+  display:block;
+  color: white;
+  font-size:20px;
+}
+
+h1 {
+  position: relative;
+  font-family: "Lucida Console", "Courier New", monospace; 
+  font-size: 400%;
+   
+  animation-name: colors1;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  -webkit-animation-name: colors1;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}
+
+h1::after{
+  width: 10px;
+  height: 10px;
+  content: "";
+
+}
+
+@keyframes borders{
+  from{
+    border-color:white;
+  }
+  to{
+    border-color:rgb(43, 102, 190);
+  }
+
+}
+
+@-webkit-keyframes borders{
+  from{
+    border-color:white;
+  }
+  to{
+    border-color:rgb(43, 102, 190);
+  }
+
+}
+
+button {
+  
+  width:300px;
+  height:300px;
+  padding-top: 14px;
+  padding-left: 8px;
+  line-height: 20px;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  color:#f5f5f5;
+  text-align:center;
+  text-decoration:none;
+  background-color: rgba(0,0,0,0.2);
+  font-size:70px;
+  transition: all 0.3s ease;
+}
+
+
+button:hover {
+  width: 350px;
+  height: 350px;
+  background-color: rgba(0,0,0, 0.5);
+  box-shadow: 0px 0px 100px rgba(0,102,255,1);
+
+  animation-name: borders;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  -webkit-animation-name: borders;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+}

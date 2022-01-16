@@ -106,6 +106,16 @@
     };
     exports.S_CLICKED = JSON.stringify(exports.O_CLICKED);
 
+    /*
+     * Client to Server: game time
+    */
+    exports.T_GAMETIME = "GAMETIME";
+    exports.O_GAMETIME = {
+	type: exports.T_GAMETIME,
+	data: null,
+    };
+    exports.S_GAMETIME = JSON.stringify(exports.O_GAMETIME);
+
   /*
    * Server to Player A & B: game over with result won/loss
    */

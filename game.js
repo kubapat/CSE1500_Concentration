@@ -19,7 +19,7 @@ const game = function(gameID) {
 	this.gameState= "0 JOINT";
 	this.playerAScore = 0;
 	this.playerBScore = 0;
-	this.turn = false; //0 - A | 1 - B
+	this.turn = true; //0 - A | 1 - B
 	this.startTime = -1;
 	this.currentMove = [];
 };
@@ -80,6 +80,14 @@ game.prototype.getA = function() {
 
 game.prototype.getB = function() {
         return this.playerB;
+};
+
+game.prototype.isCompleted = function() {
+	for(let i=0; i<16; i++) {
+		if(!this.revealed[i]) return false;
+	}
+
+	return true;
 };
 
 

@@ -35,9 +35,9 @@ const app = express();
   		}
 	}, 50000);
 
+	//Initialize game and connection
 	let currentGame  = new Game(stats.gamesInitialized++);
 	currentGame.initializeGrid();
-
 	let connectionID = 2137;
 
 
@@ -45,17 +45,18 @@ const app = express();
 		//Websocket init
 		const con = ws;
 		con["id"] = connectionID++;
+
+		if(currentGame.hasTwoConnectedPlayers()) { //If at current game are currently two players, create new game for that one
+                        currentGame = new Game(stats.gamesInitialized++);
+                        currentGame.initializeGrid();
+                }
+
+		//Assign player to game
 		const playerType = currentGame.addPlayer(con);
   		websockets[con["id"]] = currentGame;
 
 		console.log(`Player ${con["id"]} placed in game ${currentGame.id} as ${playerType}`);
 		con.send(playerType == "A" ? messages.S_PLAYER_A : messages.S_PLAYER_B);
-
-		/*
-		if(currentGame.hasTwoConnectedPlayers()) { //If at current game are currently two players, create new game for that one
-    			currentGame = new Game(stats.gamesInitialized++);
-			currentGame.initializeGrid();
-  		} */
 
 		//Init turn
 		let msg  = messages.O_TURN;
@@ -96,12 +97,14 @@ const app = express();
 			currentGame.clearMove();
 		},30000); */
 
+		//If message received from client
 		con.on("message", function incoming(message) {
 			const oMsg = JSON.parse(message.toString());
 
 			const gameObj = websockets[con["id"]];
 			const isPlayerA = gameObj.playerA == con ? true : false;
 
+			//If it's move
 			if(oMsg.type == messages.T_CLICKED) {
 				var moves = gameObj.getCurrentMove();
 				if(moves.length == 1) { //If 2nd picked up
@@ -110,17 +113,28 @@ const app = express();
                                         gameObj.addMove(selected-1);
 					var gridVals = gameObj.getGrid();
 
+					var correct = false;
 					if(gridVals[moves[0]] == gridVals[selected-1]) { //if correct
 						if(isPlayerA) gameObj.incrementA();
 						else gameObj.incrementB();
+
+						correct = true;
 					} else {					//Not correct
+
+
+						let msgShort  = messages.O_REVEALED;
+        	                                msgShort.data = currentGame.getRevealed();
+	                                        gameObj.getA().send(JSON.stringify(msgShort));
+                	                        gameObj.getB().send(JSON.stringify(msgShort));
+
 						console.log("MISSED");
 						gameObj.hideAt(moves[0]);
 						gameObj.hideAt(selected-1);
 					}
 
+					setTimeout(function() {
+
 					gameObj.clearMove();
-					gameObj.changeTurn();
 
 					//Update revealed
 					let msg7  = messages.O_REVEALED;
@@ -129,11 +143,14 @@ const app = express();
 					gameObj.getB().send(JSON.stringify(msg7));
 
 
-					//Update turn
-			                let msgTurn  = messages.O_TURN;
-                			msgTurn.data = currentGame.getTurn();
-                			gameObj.getA().send(JSON.stringify(msgTurn));
-					gameObj.getB().send(JSON.stringify(msgTurn));
+					//Update turn only if incorrect move
+					if(!correct) {
+						gameObj.changeTurn();
+			                	let msgTurn  = messages.O_TURN;
+                				msgTurn.data = currentGame.getTurn();
+                				gameObj.getA().send(JSON.stringify(msgTurn));
+						gameObj.getB().send(JSON.stringify(msgTurn));
+					} else if(gameObj.isCompleted()) stats.gamesCompleted++;
 
 			                //Update score
 			                let msgA  = messages.O_A_SCORE;
@@ -145,6 +162,7 @@ const app = express();
                 			msgB.data = currentGame.getBScore();
 					gameObj.getA().send(JSON.stringify(msgB));
 					gameObj.getB().send(JSON.stringify(msgB));
+					}, 2000);
 
 				} else if(moves.length == 0) {
 					let selected = parseInt(oMsg.data);
@@ -167,6 +185,10 @@ const app = express();
                 			gameObj.getA().send(JSON.stringify(msgTime));
 					gameObj.getB().send(JSON.stringify(msgTime));
 				}
+
+			} else if(oMsg.type == messages.T_GAMETIME) { //If game is finished and game time was sent
+				var time = parseInt(oMsg.data);
+				if(stats.fastestGame == -1 || stats.fastestGame > time) stats.fastestGame = time;
 			}
 		});
 

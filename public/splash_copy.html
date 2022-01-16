@@ -4,7 +4,7 @@
 	<title>Concentration Game - Delft</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="splash.css" />
+
 	<link rel="apple-touch-icon" sizes="57x57" href="images/icon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="images/icon/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="images/icon/apple-icon-72x72.png">
@@ -23,7 +23,25 @@
 	<meta name="msapplication-TileImage" content="images/icon/ms-icon-144x144.png">
 	<meta name="theme-color" content="#ffffff">
 
-	
+	<style>
+		#stats {
+  			border-radius: 25px;
+  			border: 2px solid white;
+  			padding: 4px;
+			margin: 5px;
+			width: fit-content;
+			color: white;
+		}
+
+		button {
+			background-image: url("images/button.png");
+			background-size: cover;
+			width: 300px;
+			height: 300px;
+			border: none;
+			padding: 0;
+		}
+	</style>
 </head>
 
 <body style="background-color: #00a2e8;">
@@ -31,18 +49,18 @@
 		<br><br><br>
 		<div style="width:30%; color: white;">
 			<h1><b>Concentration</b> Game</h1>
-			
+			<hr style="border: 2px solid white;">
 		</div>
 
-		<br>		
+		<br>
+
 		<form action="/play" method="GET">
-			<button type="submit" id="startGame" > PLAY </button>
+			<button type="submit" id="startGame"></button>
 		</form>
 	</div>
-	
-	
+
 	<br><br>
-	<div align="left" class="footer">
+	<div align="left" id="stats">
 		<p><b>Games Initialized:</b> 453</p>
 		<p><b>Games Completed:</b> 1111</p>
 		<p><b>Fastest game:</b> 00:42</p>

@@ -43,9 +43,13 @@
 	
 	<br><br>
 	<div align="left" class="footer">
-		<p><b>Games Initialized:</b> 453</p>
-		<p><b>Games Completed:</b> 1111</p>
-		<p><b>Fastest game:</b> 00:42</p>
+		<p><b>Games Initialized:</b> <%= gamesInitialized %> </p>
+		<p><b>Games Completed:</b> <%= gamesCompleted %> </p>
+		<p><b>Fastest game:</b> <% if(fastestGame == -1) { %>
+						No game played so far
+					<% } else { %>
+						<%= fastestGame %>
+					<%    } %> </p>
 	</div>
 </body>
 
