@@ -51,10 +51,11 @@ const app = express();
 		console.log(`Player ${con["id"]} placed in game ${currentGame.id} as ${playerType}`);
 		con.send(playerType == "A" ? messages.S_PLAYER_A : messages.S_PLAYER_B);
 
+		/*
 		if(currentGame.hasTwoConnectedPlayers()) { //If at current game are currently two players, create new game for that one
     			currentGame = new Game(stats.gamesInitialized++);
 			currentGame.initializeGrid();
-  		}
+  		} */
 
 		//Init turn
 		let msg  = messages.O_TURN;
@@ -85,17 +86,87 @@ const app = express();
 		msg5.data = currentGame.getRevealed();
 		con.send(JSON.stringify(msg5));
 
+		//Every 30s clean not executed moves
+		/*
+		setInterval(function() {
+			var toRemove = currentGame.getCurrentMove();
+			for(let i=0; i<toRemove.length; i++) {
+				currentGame.hideAt(toRemove[i]);
+			}
+			currentGame.clearMove();
+		},30000); */
+
 		con.on("message", function incoming(message) {
 			const oMsg = JSON.parse(message.toString());
 
 			const gameObj = websockets[con["id"]];
 			const isPlayerA = gameObj.playerA == con ? true : false;
 
-			if(!isPlayerA) {
-				if (oMsg.type == messages.T_GAME_WON_BY) {
-			 	       gameObj.setStatus(oMsg.data);
-				       gameStatus.gamesCompleted++;
-      				}
+			if(oMsg.type == messages.T_CLICKED) {
+				var moves = gameObj.getCurrentMove();
+				if(moves.length == 1) { //If 2nd picked up
+					let selected = parseInt(oMsg.data);
+					gameObj.revealAt(selected-1);
+                                        gameObj.addMove(selected-1);
+					var gridVals = gameObj.getGrid();
+
+					if(gridVals[moves[0]] == gridVals[selected-1]) { //if correct
+						if(isPlayerA) gameObj.incrementA();
+						else gameObj.incrementB();
+					} else {					//Not correct
+						console.log("MISSED");
+						gameObj.hideAt(moves[0]);
+						gameObj.hideAt(selected-1);
+					}
+
+					gameObj.clearMove();
+					gameObj.changeTurn();
+
+					//Update revealed
+					let msg7  = messages.O_REVEALED;
+                                        msg7.data = currentGame.getRevealed();
+                                        gameObj.getA().send(JSON.stringify(msg7));
+					gameObj.getB().send(JSON.stringify(msg7));
+
+
+					//Update turn
+			                let msgTurn  = messages.O_TURN;
+                			msgTurn.data = currentGame.getTurn();
+                			gameObj.getA().send(JSON.stringify(msgTurn));
+					gameObj.getB().send(JSON.stringify(msgTurn));
+
+			                //Update score
+			                let msgA  = messages.O_A_SCORE;
+                			msgA.data = currentGame.getAScore();
+                			gameObj.getA().send(JSON.stringify(msgA));
+					gameObj.getB().send(JSON.stringify(msgA));
+
+			                let msgB  = messages.O_B_SCORE;
+                			msgB.data = currentGame.getBScore();
+					gameObj.getA().send(JSON.stringify(msgB));
+					gameObj.getB().send(JSON.stringify(msgB));
+
+				} else if(moves.length == 0) {
+					let selected = parseInt(oMsg.data);
+					gameObj.revealAt(selected-1);
+					console.log(selected-1);
+					gameObj.addMove(selected-1);
+
+					let msg6  = messages.O_REVEALED;
+                			msg6.data = currentGame.getRevealed();
+                			gameObj.getA().send(JSON.stringify(msg6));
+					gameObj.getB().send(JSON.stringify(msg6));
+					//console.log("Send new reveal");
+				}
+
+				//Start Timer
+				if(gameObj.getStartTime() == -1) {
+					gameObj.updateStartTime();
+					let msgTime  = messages.O_START_TIME;
+                			msgTime.data = currentGame.getStartTime();
+                			gameObj.getA().send(JSON.stringify(msgTime));
+					gameObj.getB().send(JSON.stringify(msgTime));
+				}
 			}
 		});
 
@@ -128,4 +199,5 @@ const app = express();
 
 
 server.listen(port);
+
 

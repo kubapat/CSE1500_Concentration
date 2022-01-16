@@ -2,6 +2,7 @@
  * Game state object
  * @param {*} socket
  */
+
 function GameState(socket) {
   this.playerType   = null;
   this.playerAScore = 21;
@@ -74,11 +75,19 @@ GameState.prototype.setRevealed = function(revealed) {
         this.revealed = revealed;
 };
 
-
 //Utility
+GameState.prototype.isMyTurn = function() {
+	return (!this.getTurn() && this.getPlayerType() == "A") || (this.getTurn() && this.getPlayerType() == "B");
+};
+
 GameState.prototype.turnFriendlyMessage = function() {
-	if((!this.getTurn() && this.getPlayerType() == "A") || (this.getTurn() && this.getPlayerType() == "B")) return '<span style="color:green;">Your turn</span>';
+	if(this.isMyTurn()) return '<span style="color:green;">Your turn</span>';
 	else return '<span style="color:red;">Wait for oponnents move</span>';
+};
+
+GameState.prototype.isRevealed = function(index) {
+	var toReveal = this.getRevealed();
+	return toReveal[index-1] == 1;
 };
 
 GameState.prototype.updateGame = function() {
@@ -89,12 +98,22 @@ GameState.prototype.updateGame = function() {
 
 	var toReveal = this.getRevealed();
 	var toGrid   = this.getGrid();
+	var revealed = 0;
+
 	if(toReveal != null && toGrid != null) {
-		for(let i=0; i<16; i++) {
-			if(toReveal[i] == 1) {
-				document.getElementById("grid"+i).style.backgroundImage = "url('images/"+toGrid[i]+".jpg')";
+		for(let i=1; i<=16; i++) {
+			if(toReveal[i-1] == 1) {
+				document.getElementById("grid"+i).style.backgroundImage = "url('images/"+toGrid[i-1]+".jpg')";
+				revealed++;
+			} else {
+				document.getElementById("grid"+i).style.backgroundImage = "url('images/tudelft.png')";
 			}
+
 		}
+	}
+
+	if(revealed == 16) {
+		alert("Game is finished");
 	}
 };
 
@@ -102,7 +121,6 @@ GameState.prototype.updateGame = function() {
 
 
 //set everything up, including the WebSocket
-(function setup() {
   const socket = new WebSocket("ws://192.168.0.107:3000");
   const gs = new GameState(socket);
 
@@ -143,4 +161,20 @@ GameState.prototype.updateGame = function() {
   };
 
   socket.onerror = function () {};
-})(); //execute immediately
+
+  function clicked(id) {
+	if(!gs.isMyTurn()) {
+		alert("It's not your turn");
+		return;
+	}
+
+	if(gs.isRevealed(id)) {
+		alert("This piece is already revealed");
+		return;
+	}
+
+	let msg  = Messages.O_CLICKED;
+        msg.data = id;
+        socket.send(JSON.stringify(msg));
+  }
+

@@ -12,8 +12,8 @@ const game = function(gameID) {
   		    ];
 	this.revealed = [
 			0, 0, 0, 0,
-                        0, 0, 1, 0,
-                        0, 1, 0, 0,
+                        0, 0, 0, 0,
+                        0, 0, 0, 0,
                         0, 0, 0, 0
 			];
 	this.gameState= "0 JOINT";
@@ -21,6 +21,7 @@ const game = function(gameID) {
 	this.playerBScore = 0;
 	this.turn = false; //0 - A | 1 - B
 	this.startTime = -1;
+	this.currentMove = [];
 };
 
 game.prototype.transitionStates = {
@@ -43,16 +44,7 @@ game.prototype.transitionMatrix = [
   	[0, 0, 0, 0, 0, 0, 0]  //ABORTED
 ];
 
-game.prototype.incrementA = function()
-{
-  this.playerAScore++;
-};
-
-game.prototype.incrementB = function()
-{
-  this.playerBScore++;
-};
-
+//Getters
 game.prototype.getAScore= function()
 {
   	return this.playerAScore;
@@ -66,7 +58,6 @@ game.prototype.getRevealed = function() {
         return this.revealed;
 };
 
-
 game.prototype.getBScore = function() {
 	return this.playerBScore;
 };
@@ -79,6 +70,31 @@ game.prototype.getStartTime = function() {
 	return this.startTime;
 };
 
+game.prototype.getCurrentMove = function() {
+	return this.currentMove;
+};
+
+game.prototype.getA = function() {
+	return this.playerA;
+};
+
+game.prototype.getB = function() {
+        return this.playerB;
+};
+
+
+
+//Modifiers
+game.prototype.incrementA = function()
+{
+  this.playerAScore++;
+};
+
+game.prototype.incrementB = function()
+{
+  this.playerBScore++;
+};
+
 game.prototype.updateStartTime = function() {
 	this.startTime = Date.now();
 };
@@ -86,6 +102,23 @@ game.prototype.updateStartTime = function() {
 game.prototype.changeTurn = function() {
 	this.turn = !this.turn;
 };
+
+game.prototype.addMove = function(move) {
+	this.currentMove.push(move);
+};
+
+game.prototype.clearMove = function() {
+	this.currentMove = [];
+};
+
+game.prototype.revealAt = function(index) {
+	this.revealed[parseInt(index)] = 1;
+};
+
+game.prototype.hideAt = function(index) {
+        this.revealed[parseInt(index)] = 0;
+};
+
 
 game.prototype.initializeGrid = function(){
 	let helper = new Array(8);
@@ -136,14 +169,6 @@ game.prototype.isValidState = function(s) {
 };
 
 /**
- * Retrieves the grid of game.
- * @returns {Array} the grid
- */
-game.prototype.getGrid = function() {
-  return this.grid;
-};
-
-/**
  * Checks whether the game is full.
  * @returns {boolean} returns true if the game is full (2 players), false otherwise
  */
@@ -172,11 +197,5 @@ game.prototype.addPlayer = function(p) {
     return "B";
   }
 };
-
-//let test1= new game(333);
-//test1.initializeGrid();
-//for(let i=0; i<4; i++)
-  //for(let j=0; j<4; j++)
-    //console.log(test1.getGrid()[i][j][1]);
 
 module.exports = game;

@@ -96,6 +96,16 @@
     };
     exports.S_REVEALED = JSON.stringify(exports.O_REVEALED);
 
+   /*
+    * Client to Server: clicked item
+    */
+    exports.T_CLICKED = "CLICKED";
+    exports.O_CLICKED = {
+	type: exports.T_CLICKED,
+	data: null,
+    };
+    exports.S_CLICKED = JSON.stringify(exports.O_CLICKED);
+
   /*
    * Server to Player A & B: game over with result won/loss
    */
