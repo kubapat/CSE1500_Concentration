@@ -77,6 +77,26 @@
    exports.S_START_TIME = JSON.stringify(exports.O_START_TIME);
 
   /*
+   * Server to client: Game grid
+   */
+   exports.T_GRID = "GRID";
+   exports.O_GRID = {
+	type: exports.T_GRID,
+	data: null,
+   };
+   exports.S_GRID = JSON.stringify(exports.O_GRID);
+
+   /*
+    * Server to cliend: Revealed fields
+    */
+    exports.T_REVEALED = "REVEALED";
+    exports.O_REVEALED = {
+	type: exports.T_REVEALED,
+	data: null,
+    };
+    exports.S_REVEALED = JSON.stringify(exports.O_REVEALED);
+
+  /*
    * Server to Player A & B: game over with result won/loss
    */
   exports.T_GAME_OVER = "GAME-OVER";

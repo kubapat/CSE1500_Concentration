@@ -36,6 +36,8 @@ const app = express();
 	}, 50000);
 
 	let currentGame  = new Game(stats.gamesInitialized++);
+	currentGame.initializeGrid();
+
 	let connectionID = 2137;
 
 
@@ -51,6 +53,7 @@ const app = express();
 
 		if(currentGame.hasTwoConnectedPlayers()) { //If at current game are currently two players, create new game for that one
     			currentGame = new Game(stats.gamesInitialized++);
+			currentGame.initializeGrid();
   		}
 
 		//Init turn
@@ -71,6 +74,16 @@ const app = express();
 		let msg3  = messages.O_START_TIME;
 		msg3.data = currentGame.getStartTime();
 		con.send(JSON.stringify(msg3));
+
+		//Init grid
+		let msg4  = messages.O_GRID;
+		msg4.data = currentGame.getGrid();
+		con.send(JSON.stringify(msg4));
+
+		//Init revealed
+		let msg5  = messages.O_REVEALED;
+		msg5.data = currentGame.getRevealed();
+		con.send(JSON.stringify(msg5));
 
 		con.on("message", function incoming(message) {
 			const oMsg = JSON.parse(message.toString());

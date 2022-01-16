@@ -4,17 +4,23 @@ const game = function(gameID) {
 	this.playerA = null;
 	this.playerB = null;
 	this.id = gameID;
-	this.grid= [
-  		[[0,0], [0,0], [0,0] , [0,0]],
-  		[[0,0], [0,0], [0,0] , [0,0]],
-  		[[0,0], [0,0], [0,0] , [0,0]],
-  		[[0,0], [0,0], [0,0] , [0,0]]
-  		]
-  this.gameState= "0 JOINT";
-  this.playerAScore = 0;
-  this.playerBScore = 0;
-  this.turn = false; //0 - A | 1 - B
-  this.startTime = -1;
+	this.grid = [
+  			0, 0, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 0,
+			0, 0, 0, 0
+  		    ];
+	this.revealed = [
+			0, 0, 0, 0,
+                        0, 0, 1, 0,
+                        0, 1, 0, 0,
+                        0, 0, 0, 0
+			];
+	this.gameState= "0 JOINT";
+	this.playerAScore = 0;
+	this.playerBScore = 0;
+	this.turn = false; //0 - A | 1 - B
+	this.startTime = -1;
 };
 
 game.prototype.transitionStates = {
@@ -49,12 +55,20 @@ game.prototype.incrementB = function()
 
 game.prototype.getAScore= function()
 {
-  return this.playerAScore;
+  	return this.playerAScore;
+};
+
+game.prototype.getGrid = function() {
+	return this.grid;
+};
+
+game.prototype.getRevealed = function() {
+        return this.revealed;
 };
 
 
-game.prototype.getBScore= function() {
-  return this.playerBScore;
+game.prototype.getBScore = function() {
+	return this.playerBScore;
 };
 
 game.prototype.getTurn = function() {
@@ -74,22 +88,20 @@ game.prototype.changeTurn = function() {
 };
 
 game.prototype.initializeGrid = function(){
-	let helper= new Array(8);
+	let helper = new Array(8);
 
 	for(let i=0; i<8; i++) helper[i]=2;
 
 
-	for(let i=0; i<4; i++) {
-    		for(let j=0; j<4; j++) {
-      			var number = Math.floor(Math.random()*8);
+	for(let i=0; i<16; i++) {
+      		var number = Math.floor(Math.random()*8);
 
-      			while(helper[number]==0) {
-        			number = Math.floor(Math.random()*8);
-			}
+      		while(helper[number]==0) {
+        		number = Math.floor(Math.random()*8);
+		}
 
-      			this.grid[i][j][0] = number;
-      			helper[number]--;
-    		}
+      		this.grid[i] = number;
+      		helper[number]--;
 	}
 };
 
