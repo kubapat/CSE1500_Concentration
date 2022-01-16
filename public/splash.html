@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Concentration Game - Delft</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="apple-touch-icon" sizes="57x57" href="images/icon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="images/icon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/icon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="images/icon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/icon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="images/icon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="images/icon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="images/icon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/icon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="images/icon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="images/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="images/icon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="images/icon/favicon-16x16.png">
+	<link rel="manifest" href="images/icon/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="images/icon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+
+	<style>
+		#stats {
+  			border-radius: 25px;
+  			border: 2px solid white;
+  			padding: 4px;
+			margin: 5px;
+			width: fit-content;
+			color: white;
+		}
+
+		button {
+			background-image: url("images/button.png");
+			background-size: cover;
+			width: 300px;
+			height: 300px;
+			border: none;
+			padding: 0;
+		}
+	</style>
+</head>
+
+<body style="background-color: #00a2e8;">
+	<div align="center" id="gameinit">
+		<br><br><br>
+		<div style="width:30%; color: white;">
+			<h1><b>Concentration</b> Game</h1>
+			<hr style="border: 2px solid white;">
+		</div>
+
+		<br>
+
+		<form action="/play" method="GET">
+			<button type="submit" id="startGame"></button>
+		</form>
+	</div>
+
+	<br><br>
+	<div align="left" id="stats">
+		<p><b>Games Initialized:</b> 453</p>
+		<p><b>Games Completed:</b> 1111</p>
+		<p><b>Fastest game:</b> 00:42</p>
+	</div>
+</body>
+
+</html>

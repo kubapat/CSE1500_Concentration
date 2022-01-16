@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Concentration Game - Delft</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="apple-touch-icon" sizes="57x57" href="images/icon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="images/icon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="images/icon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="images/icon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="images/icon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="images/icon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="images/icon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="images/icon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="images/icon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="images/icon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="images/icon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="images/icon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="images/icon/favicon-16x16.png">
+        <link rel="manifest" href="images/icon/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="images/icon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+
+	<style>
+
+		* {
+ 			 box-sizing: border-box;
+			 color: white;
+		}
+
+		.borderedBox {
+  			border-radius: 25px;
+  			border: 2px solid white;
+  			padding: 4px;
+			margin: 5px;
+			width: fit-content;
+			height: fit-content;
+			color: white;
+		}
+
+		.column {
+  			float: left;
+			width: 50%;
+  			padding: 10px;
+		}
+
+		.row:after {
+  			content: "";
+  			display: table;
+  			clear: both;
+		}
+		
+
+		.grid-container {
+			display: grid;
+  			grid-column-gap: 5%;
+  			grid-row-gap: 5%;
+  			grid-template-columns: auto auto auto auto;
+  			padding: 10px;
+		}
+
+		.grid-item {
+			background-image: url(images/tudelft.png);
+			height: 150px;
+			background-repeat: no-repeat;
+			background-size: auto;
+                 	border: 5px solid white;
+                	padding: 20px;
+                	font-size: 30px;
+  			text-align: center;
+		}
+	</style>
+</head>
+
+<body style="background-color: #00a2e8;">
+	<div class="row">
+		<div class="column">
+			<div align="left" id="gameinit">
+				<h1><b>Concentration</b> Game</h1>
+				<hr style="border: 2px solid white;">
+				<br>
+			</div>
+		</div>
+
+		<div class="column">
+			<div align="right" class="borderedBox">
+				<h1 id="gametime">Elapsed time: 00:42</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="column">
+			<div class="row">
+				<div class="column">
+					<div class="borderedBox">
+						<h1>Player 1:</h1>
+					</div>
+				</div>
+				<div class="column">
+					<div class="borderedBox">
+						<h1 id="player1score">21</h1>
+					</div>
+				</div>
+			</div>
+
+			<br><br>
+
+			<div class="row">
+                                <div class="column">
+                                        <div class="borderedBox">
+                                                <h1>Player 2:</h1>
+                                        </div>
+                                </div>
+                                <div class="column">
+                                        <div class="borderedBox">
+                                                <h1 id="player2score">37</h1>
+                                        </div>
+                                </div>
+                        </div>
+
+			<div id="currentTurn">
+				Wait for other player to connect
+			</div>
+
+		</div>
+
+		<div class="column">
+
+			<div class="grid-container">
+				<div class="grid-item" id="grid1"></div>
+				<div class="grid-item" id="grid2"></div>
+				<div class="grid-item" id="grid3"></div>
+				<div class="grid-item" id="grid4"></div>
+                		<div class="grid-item" id="grid5"></div>
+                		<div class="grid-item" id="grid6"></div>
+				<div class="grid-item" id="grid7"></div>
+                		<div class="grid-item" id="grid8"></div>
+               	 		<div class="grid-item" id="grid9"></div>
+				<div class="grid-item" id="grid10"></div>
+                		<div class="grid-item" id="grid11"></div>
+                		<div class="grid-item" id="grid12"></div>
+                		<div class="grid-item" id="grid13"></div>
+                		<div class="grid-item" id="grid14"></div>
+                		<div class="grid-item" id="grid15"></div>
+                		<div class="grid-item" id="grid15"></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="javascripts/messages.js"></script>
+	<script src="javascripts/main.js"></script>	
+
+	
+
+</body>
+
+</html>
