@@ -1,0 +1,173 @@
+@import "stylesheets/style.css";
+
+
+
+* {
+  box-sizing: border-box;
+  color: white;
+}
+
+.borderedBox {
+    border-radius: 25px;
+    border: 5px solid;
+  border-color: white;
+    padding: 4px;
+  margin: 5px;
+  width: fit-content;
+  height: fit-content;
+  color: white;
+}
+
+
+.slide-in {
+  animation: slide-in 0.5s forwards;
+  -webkit-animation: slide-in 0.5s forwards;
+}
+
+   
+@keyframes slide-in {
+  100% { transform: translateX(0%); }
+}
+
+@-webkit-keyframes slide-in {
+  100% { -webkit-transform: translateX(0%); }
+}
+
+
+     
+@keyframes colors {
+  0%	{border-color: #ffffff;}
+  10% {border-color: #ccf2ff;}
+  20% {border-color: #99e6ff;  }
+  30% {border-color: #66d9ff;  }
+  40% {border-color: #33ccff;  }
+  50% {border-color: #00bfff;  }
+  60% {border-color: #4dd2ff; }
+  70% {border-color: #80dfff;  }
+  80% {border-color: #b3ecff;  }
+  90% {border-color: #e6f9ff;  }
+  100% {border-color: #ffffff; }
+}
+
+@-webkit-keyframes colors {
+  0%	{border-color: #ffffff;}
+  10% {border-color: #ccf2ff;}
+  20% {border-color: #99e6ff;  }
+  30% {border-color: #66d9ff;  }
+  40% {border-color: #33ccff;  }
+  50% {border-color: #00bfff;  }
+  60% {border-color: #4dd2ff; }
+  70% {border-color: #80dfff;  }
+  80% {border-color: #b3ecff;  }
+  90% {border-color: #e6f9ff;  }
+  100% {border-color: #ffffff; }
+}
+
+.column {
+    float: left;
+  width: 50%;
+    padding: 10px;
+  
+}
+
+.row::before{
+  width: 10px;
+  height: 10px;
+  content: "";
+    display: grid;
+    clear: both;
+}
+
+.row::after {
+    content: "";
+    display: grid;
+    clear: both;
+}
+
+
+.grid-container {
+  display: grid;
+    grid-column-gap: 5%;
+    grid-row-gap: 5%;
+    grid-template-columns: auto auto auto auto;
+    padding: 10px;
+  
+}
+
+.grid-item:active{
+  box-shadow: 0px 0px 100px rgba(0,102,255,1);
+}
+
+.grid-item {
+  background-image: url(images/tudelft.png);
+  height: 150px;
+  width: 150px;
+  background-repeat: no-repeat;
+  background-size: 150px 150px;
+  border: 5px solid white;
+  padding: 20px;
+  font-size: 30px;
+  text-align: center;
+  border-radius: 5%;
+  -webkit-transition: background-image 0.5s ease-in-out;
+  -moz-transition: background-image 0.5s ease-in-out;
+  -o-transition: background-image 0.5s ease-in-out;
+  transition: background-image 0.5s ease-in-out;
+  
+}
+
+.grid-item:hover{
+  border: 5px solid rgba(0,0,0,0.5);			
+}
+
+#head{
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+}
+
+.row{
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+}
+
+
+
+.player{
+  border-radius: 25px;
+    border: 5px solid;
+  border-color: white;
+    padding: 4px;
+  margin: 5px;
+  width: fit-content;
+  height: fit-content;
+  color: white;
+  animation-name: colors;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  -webkit-animation-name: colors;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
+  
+  
+}
+
+#currentTurn{
+  border-radius: 25px;
+    border: 5px solid white;
+    padding: 4px;
+  margin: 5px;
+  width: fit-content;
+  height: fit-content;
+  color: white;
+  position: absolute;
+  font-size: 30px;
+  text-align: center;
+  width: 500px;
+  height: 100px;
+  transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  
+}
+
